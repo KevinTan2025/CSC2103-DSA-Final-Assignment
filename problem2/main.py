@@ -1,4 +1,6 @@
 # 手写最小堆
+import csv
+
 class MinHeap:
     def __init__(self):
         self.data = []
@@ -76,18 +78,51 @@ def reconstruct_path(prev, start, end):
     path.reverse()
     return path if path[0] == start else []
 
+def read_graph_from_csv(file_path):
+    graph = {}
+    with open(file_path, mode='r', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if not row:
+                continue
+            src = row[0]
+            dests = row[1:]
+            graph[src] = {}
+            for dest in dests:
+                if ':' in dest:
+                    d, w = dest.split(':')
+                    graph[src][d] = int(w)
+    return graph
+
+def load_graph_from_csv(filename):
+    """从CSV文件加载图数据"""
+    graph = {}
+    with open(filename, 'r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            source = row['source']
+            destination = row['destination']
+            weight = int(row['weight'])
+            
+            if source not in graph:
+                graph[source] = {}
+            graph[source][destination] = weight
+            
+            # 确保目标节点也在图中（即使没有出边）
+            if destination not in graph:
+                graph[destination] = {}
+    
+    return graph
+
 def main():
-    # 示例图
-    graph = {
-        'A': {'B': 10, 'C': 5},
-        'B': {'C': 1, 'D': 4},
-        'C': {'D': 1},
-        'D': {'E': 3},
-        'E': {}
-    }
+    # 从CSV文件加载图数据
+    graph = load_graph_from_csv('graph_edges.csv')
     start = 'A'
     end = 'E'
 
+    # 从CSV文件读取图数据
+    # graph = read_graph_from_csv('path_to_your_file.csv')
+    
     dist, prev = dijkstra(graph, start)
     path = reconstruct_path(prev, start, end)
 

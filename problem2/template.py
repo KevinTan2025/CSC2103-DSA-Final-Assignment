@@ -37,11 +37,14 @@ def reconstruct_path(prev, start, end):
 def main():
     # Sample graph (有向加权图)
     graph = {
-        'A': {'B': 10, 'C': 5},
-        'B': {'C': 1, 'D': 4},
-        'C': {'D': 1},
-        'D': {'E': 3},
-        'E': {}
+        'A': {'B': 1, 'C': 4},
+        'B': {'D': 2, 'E': 5},
+        'C': {'D': 1, 'F': 7},
+        'D': {'G': 3, 'F': 2},
+        'E': {'H': 3},
+        'F': {'E': 1, 'H': 5},
+        'G': {'H': 2},
+        'H': {}
     }
     start = 'A'
     end = 'E'
