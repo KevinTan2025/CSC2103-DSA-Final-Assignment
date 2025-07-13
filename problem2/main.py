@@ -1,5 +1,9 @@
 # 手写最小堆
 import csv
+import os
+
+# 数据源路径定义
+DATA_PATH = os.path.join(os.path.dirname(__file__), "graph_edges.csv")
 
 class MinHeap:
     def __init__(self):
@@ -78,22 +82,6 @@ def reconstruct_path(prev, start, end):
     path.reverse()
     return path if path[0] == start else []
 
-def read_graph_from_csv(file_path):
-    graph = {}
-    with open(file_path, mode='r', encoding='utf-8') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            if not row:
-                continue
-            src = row[0]
-            dests = row[1:]
-            graph[src] = {}
-            for dest in dests:
-                if ':' in dest:
-                    d, w = dest.split(':')
-                    graph[src][d] = int(w)
-    return graph
-
 def load_graph_from_csv(filename):
     """从CSV文件加载图数据"""
     graph = {}
@@ -116,12 +104,9 @@ def load_graph_from_csv(filename):
 
 def main():
     # 从CSV文件加载图数据
-    graph = load_graph_from_csv('graph_edges.csv')
+    graph = load_graph_from_csv(DATA_PATH)
     start = 'A'
     end = 'E'
-
-    # 从CSV文件读取图数据
-    # graph = read_graph_from_csv('path_to_your_file.csv')
     
     dist, prev = dijkstra(graph, start)
     path = reconstruct_path(prev, start, end)
