@@ -210,3 +210,6 @@ __marimo__/
 pyproject.toml
 ./uv.lock
 .python-version
+
+# Apple Ignores
+.DS_Store
