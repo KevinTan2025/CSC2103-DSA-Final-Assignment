@@ -443,3 +443,8 @@ def parse_input(user_input: str) -> Any:
 
     # Return as string
     return user_input
+
+def parse_list_input(user_input: str) -> List[Any]:
+    # Parse comma-separated list input
+    items = [item.strip() for item in user_input.split(',')]
+    return [parse_input(item) for item in items if item]
