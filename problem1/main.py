@@ -341,3 +341,30 @@ class BSTTester:
             print(f"  Inorder after deletion: {bst.inorder_traversal()}")
 
         return True
+
+    @staticmethod
+    def run_edge_case_tests() -> bool:
+        # Run edge case tests
+        print("\n" + "=" * 50)
+        print("RUNNING EDGE CASE TESTS")
+        print("=" * 50)
+
+        # Test empty tree
+        bst = BinarySearchTree()
+        print(f"Empty tree search: {bst.search(10)}")
+        print(f"Empty tree delete: {bst.delete(10)}")
+        print(f"Empty tree height: {bst.get_height()}")
+
+        # Test single node
+        bst.insert(42)
+        print(f"Single node tree height: {bst.get_height()}")
+        print(f"Single node delete: {bst.delete(42)}")
+        print(f"Tree size after deletion: {bst.size}")
+
+        # Test duplicate insertions
+        bst = BinarySearchTree()
+        print(f"First insert 10: {bst.insert(10)}")
+        print(f"Duplicate insert 10: {bst.insert(10)}")
+        print(f"Tree size: {bst.size}")
+
+        return True
