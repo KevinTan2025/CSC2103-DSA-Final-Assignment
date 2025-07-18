@@ -398,3 +398,26 @@ class BSTTester:
         print(f"String BST inorder: {str_bst.inorder_traversal()}")
 
         return True
+
+def display_menu():
+    # Display interactive menu options
+    print("\n" + "=" * 60)
+    print("BINARY SEARCH TREE OPERATIONS")
+    print("=" * 60)
+    print("Supported data types: integers, floats, strings")
+    print("Note: Use only one data type per tree & don't use duplicate values")
+    print("=" * 60)
+    print("1.  Insert element")
+    print("2.  Bulk insert from list")
+    print("3.  Search element")
+    print("4.  Delete element")
+    print("5.  Display tree structure")
+    print("6.  Show inorder traversal")
+    print("7.  Show preorder traversal")
+    print("8.  Show postorder traversal")
+    print("9.  Find elements in range")
+    print("10. Show tree statistics")
+    print("11. Run automated test cases")
+    print("12. Clear tree")
+    print("0.  Exit")
+    print("=" * 60)
