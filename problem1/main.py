@@ -239,3 +239,26 @@ class BinarySearchTree:
             "min_value": self._find_min(self.root).data if self.root else None,
             "max_value": self._find_max(self.root).data if self.root else None,
         }
+
+    def _is_balanced(self) -> bool:
+        # Check if tree is balanced (height difference <= 1)
+        def check_balance(node: Optional[BSTNode]) -> Tuple[bool, int]:
+            if node is None:
+                return True, 0
+
+            left_balanced, left_height = check_balance(node.left)
+            if not left_balanced:
+                return False, 0
+
+            right_balanced, right_height = check_balance(node.right)
+            if not right_balanced:
+                return False, 0
+
+            height_diff = abs(left_height - right_height)
+            is_balanced = height_diff <= 1
+            height = 1 + max(left_height, right_height)
+
+            return is_balanced, height
+
+        balanced, _ = check_balance(self.root)
+        return balanced
