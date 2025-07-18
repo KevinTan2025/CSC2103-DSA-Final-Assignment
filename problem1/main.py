@@ -421,3 +421,25 @@ def display_menu():
     print("12. Clear tree")
     print("0.  Exit")
     print("=" * 60)
+
+def parse_input(user_input: str) -> Any:
+    '''
+    Parse user input to appropriate data type
+    Tries int, then float, then string
+    '''
+    user_input = user_input.strip()
+
+    # Try integer
+    try:
+        return int(user_input)
+    except ValueError:
+        pass
+
+    # Try float
+    try:
+        return float(user_input)
+    except ValueError:
+        pass
+
+    # Return as string
+    return user_input
