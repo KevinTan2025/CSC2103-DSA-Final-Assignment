@@ -262,3 +262,15 @@ class BinarySearchTree:
 
         balanced, _ = check_balance(self.root)
         return balanced
+
+    def visualize_tree(self) -> str:
+        '''
+        Create a visual representation of the tree
+        Returns a formatted string showing tree structure
+        '''
+        if not self.root:
+            return "Empty Tree"
+
+        lines = []
+        self._build_tree_string(self.root, 0, True, "", lines)
+        return "\n".join(lines)
