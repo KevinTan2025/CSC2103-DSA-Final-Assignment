@@ -192,4 +192,14 @@ class BinarySearchTree:
             self._postorder_recursive(node.right, result)
             result.append(node.data)
 
-    
+    def get_height(self) -> int:
+        # Calculate height of the tree
+        return self._height_recursive(self.root)
+
+    def _height_recursive(self, node: Optional[BSTNode]) -> int:
+        # Helper method for height calculation
+        if node is None:
+            return 0
+        return 1 + max(self._height_recursive(node.left),
+                       self._height_recursive(node.right))
+
