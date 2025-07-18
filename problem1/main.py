@@ -203,3 +203,25 @@ class BinarySearchTree:
         return 1 + max(self._height_recursive(node.left),
                        self._height_recursive(node.right))
 
+    def find_range(self, min_val: Any, max_val: Any) -> List[Any]:
+        # Find all values in given range [min_val, max_val]
+        result = []
+        self._range_search(self.root, min_val, max_val, result)
+        return result
+
+    def _range_search(self, node: Optional[BSTNode], min_val: Any, max_val: Any, result: List[Any]):
+        # Helper method for range search
+        if node is None:
+            return
+
+        try:
+            if min_val <= node.data <= max_val:
+                result.append(node.data)
+
+            if node.data > min_val:
+                self._range_search(node.left, min_val, max_val, result)
+
+            if node.data < max_val:
+                self._range_search(node.right, min_val, max_val, result)
+        except TypeError:
+            pass
