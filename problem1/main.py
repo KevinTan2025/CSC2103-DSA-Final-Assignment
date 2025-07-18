@@ -153,4 +153,17 @@ class BinarySearchTree:
             node = node.right
         return node
 
+    def inorder_traversal(self) -> List[Any]:
+        # Return inorder traversal (sorted order)
+        result = []
+        self._inorder_recursive(self.root, result)
+        return result
+
+    def _inorder_recursive(self, node: Optional[BSTNode], result: List[Any]):
+        # Helper method for inorder traversal
+        if node is not None:
+            self._inorder_recursive(node.left, result)
+            result.append(node.data)
+            self._inorder_recursive(node.right, result)
+
  
