@@ -93,4 +93,50 @@ class BinarySearchTree:
         except TypeError:
             return False
 
-    
+    def delete(self, data: Any) -> bool:
+        '''
+        Delete data from BST maintaining BST property
+        Returns True if deletion successful, False if not found
+        '''
+        self.operation_count += 1
+        initial_size = self.size
+        self.root = self._delete_recursive(self.root, data)
+        if self.size < initial_size:
+            return True
+        return False
+
+    def _delete_recursive(self, node: Optional[BSTNode], data: Any) -> Optional[BSTNode]:
+        # Helper method for recursive deletion
+        if node is None:
+            return None
+
+        try:
+            if data < node.data:
+                node.left = self._delete_recursive(node.left, data)
+            elif data > node.data:
+                node.right = self._delete_recursive(node.right, data)
+            else:
+                # Node to be deleted found
+                self.size -= 1
+
+                # Case 1: Node with no children
+                if node.left is None and node.right is None:
+                    return None
+
+                # Case 2: Node with one child
+                elif node.left is None:
+                    return node.right
+                elif node.right is None:
+                    return node.left
+
+                # Case 3: Node with two children
+                else:
+                    # Find inorder successor (smallest in right subtree)
+                    successor = self._find_min(node.right)
+                    node.data = successor.data
+                    node.right = self._delete_recursive(node.right, successor.data)
+                    self.size += 1  # Adjust since we'll decrement again
+
+            return node
+        except TypeError:
+            return node
