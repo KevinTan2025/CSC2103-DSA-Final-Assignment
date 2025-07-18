@@ -368,3 +368,33 @@ class BSTTester:
         print(f"Tree size: {bst.size}")
 
         return True
+
+    @staticmethod
+    def run_type_tests() -> bool:
+        # Test different data types
+        print("\n" + "=" * 50)
+        print("RUNNING DATA TYPE TESTS")
+        print("=" * 50)
+
+        # Test integers
+        int_bst = BinarySearchTree()
+        int_data = [5, 3, 7, 1, 9, 2, 8]
+        for val in int_data:
+            int_bst.insert(val)
+        print(f"Integer BST inorder: {int_bst.inorder_traversal()}")
+
+        # Test floats
+        float_bst = BinarySearchTree()
+        float_data = [5.1, 3.2, 7.4, 1.3, 9.9]
+        for val in float_data:
+            float_bst.insert(val)
+        print(f"Float BST inorder: {float_bst.inorder_traversal()}")
+
+        # Test strings
+        str_bst = BinarySearchTree()
+        str_data = ["university", "keyboard", "data", "sunway", "computer"]
+        for val in str_data:
+            str_bst.insert(val)
+        print(f"String BST inorder: {str_bst.inorder_traversal()}")
+
+        return True
