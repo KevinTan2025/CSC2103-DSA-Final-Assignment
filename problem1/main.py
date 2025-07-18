@@ -290,3 +290,54 @@ class BinarySearchTree:
         if node.left is not None:
             new_prefix = " " * prefix_len + ("    " if is_tail else "│   ")
             self._build_tree_string(node.left, len(new_prefix), True, "└── ", lines)
+
+class BSTTester:
+    '''
+    Comprehensive testing module for BST operations
+    Includes predefined test cases and validation
+    '''
+
+    @staticmethod
+    def run_basic_tests() -> bool:
+        # Run basic functionality tests
+        print("=" * 50)
+        print("RUNNING BASIC TESTS")
+        print("=" * 50)
+
+        bst = BinarySearchTree()
+        test_data = [50, 30, 70, 20, 40, 60, 80]
+
+        # Test insertions
+        print("Testing insertions:")
+        for data in test_data:
+            result = bst.insert(data)
+            print(f"  Insert {data}: {'Success' if result else 'Failed'}")
+
+        # Test searches
+        print("\nTesting searches:")
+        for data in test_data:
+            result = bst.search(data)
+            print(f"  Search {data}: {'Found' if result else 'Not Found'}")
+
+        # Test non-existent search
+        result = bst.search(100)
+        print(f"  Search 100: {'Found' if result else 'Not Found'}")
+
+        # Test traversals
+        print(f"\nInorder traversal: {bst.inorder_traversal()}")
+        print(f"Preorder traversal: {bst.preorder_traversal()}")
+        print(f"Postorder traversal: {bst.postorder_traversal()}")
+
+        # Test tree visualization
+        print("\nTree Structure:")
+        print(bst.visualize_tree())
+
+        # Test deletion
+        print("\nTesting deletions:")
+        delete_values = [20, 30, 50]
+        for val in delete_values:
+            result = bst.delete(val)
+            print(f"  Delete {val}: {'Success' if result else 'Failed'}")
+            print(f"  Inorder after deletion: {bst.inorder_traversal()}")
+
+        return True
