@@ -367,7 +367,7 @@ class BSTTester:
         print(f"Duplicate insert 10: {bst.insert(10)}")
         print(f"Tree size: {bst.size}")
 
-        return True
+        return True # Placeholder to demonstrate program's ability
 
     @staticmethod
     def run_type_tests() -> bool:
@@ -397,7 +397,7 @@ class BSTTester:
             str_bst.insert(val)
         print(f"String BST inorder: {str_bst.inorder_traversal()}")
 
-        return True
+        return True # Placeholder to demonstrate program's ability
 
 def display_menu():
     # Display interactive menu options
