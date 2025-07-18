@@ -179,4 +179,17 @@ class BinarySearchTree:
             self._preorder_recursive(node.left, result)
             self._preorder_recursive(node.right, result)
 
- 
+    def postorder_traversal(self) -> List[Any]:
+        # Return postorder traversal
+        result = []
+        self._postorder_recursive(self.root, result)
+        return result
+
+    def _postorder_recursive(self, node: Optional[BSTNode], result: List[Any]):
+        # Helper method for postorder traversal
+        if node is not None:
+            self._postorder_recursive(node.left, result)
+            self._postorder_recursive(node.right, result)
+            result.append(node.data)
+
+    
