@@ -140,3 +140,17 @@ class BinarySearchTree:
             return node
         except TypeError:
             return node
+
+    def _find_min(self, node: BSTNode) -> BSTNode:
+        # Find minimum value node in subtree
+        while node.left is not None:
+            node = node.left
+        return node
+
+    def _find_max(self, node: BSTNode) -> BSTNode:
+        # Find maximum value node in subtree
+        while node.right is not None:
+            node = node.right
+        return node
+
+ 
