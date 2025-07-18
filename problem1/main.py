@@ -274,3 +274,19 @@ class BinarySearchTree:
         lines = []
         self._build_tree_string(self.root, 0, True, "", lines)
         return "\n".join(lines)
+
+    def _build_tree_string(self, node: Optional[BSTNode], prefix_len: int,
+                           is_tail: bool, prefix: str, lines: List[str]):
+        # Helper method for tree visualization
+        if node is None:
+            return
+
+        if node.right is not None:
+            new_prefix = " " * prefix_len + ("    " if is_tail else "│   ")
+            self._build_tree_string(node.right, len(new_prefix), False, "┌── ", lines)
+
+        lines.append(" " * prefix_len + prefix + str(node.data))
+
+        if node.left is not None:
+            new_prefix = " " * prefix_len + ("    " if is_tail else "│   ")
+            self._build_tree_string(node.left, len(new_prefix), True, "└── ", lines)
