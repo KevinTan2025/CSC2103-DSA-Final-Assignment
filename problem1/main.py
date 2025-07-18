@@ -166,4 +166,17 @@ class BinarySearchTree:
             result.append(node.data)
             self._inorder_recursive(node.right, result)
 
+    def preorder_traversal(self) -> List[Any]:
+        # Return preorder traversal
+        result = []
+        self._preorder_recursive(self.root, result)
+        return result
+
+    def _preorder_recursive(self, node: Optional[BSTNode], result: List[Any]):
+        # Helper method for preorder traversal
+        if node is not None:
+            result.append(node.data)
+            self._preorder_recursive(node.left, result)
+            self._preorder_recursive(node.right, result)
+
  
