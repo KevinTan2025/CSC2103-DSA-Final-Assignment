@@ -21,3 +21,53 @@ class BSTNode:
 
     def __str__(self):
         return str(self.data)
+
+class BinarySearchTree:
+    '''
+    Complete Binary Search Tree implementation with comprehensive operations
+    Supports integers, floats, and strings with proper comparison
+    '''
+
+    def __init__(self):
+        self.root: Optional[BSTNode] = None
+        self.size = 0
+        self.operation_count = 0  # Track operations for analysis
+
+    def insert(self, data: Any) -> bool:
+        '''
+        Insert data into BST maintaining BST property
+        Returns True if insertion successful, False if duplicate
+        '''
+        self.operation_count += 1
+        if self.root is None:
+            self.root = BSTNode(data)
+            self.size += 1
+            return True
+        else:
+            result = self._insert_recursive(self.root, data)
+            if result:
+                self.size += 1
+            return result
+
+    def _insert_recursive(self, node: BSTNode, data: Any) -> bool:
+        # Helper method for recursive insertion
+        try:
+            if data < node.data:
+                if node.left is None:
+                    node.left = BSTNode(data)
+                    return True
+                else:
+                    return self._insert_recursive(node.left, data)
+            elif data > node.data:
+                if node.right is None:
+                    node.right = BSTNode(data)
+                    return True
+                else:
+                    return self._insert_recursive(node.right, data)
+            else:
+                return False  # Duplicate value
+        except TypeError:
+            print(f"Error: Cannot compare {type(data)} with {type(node.data)}. Please only use 1 data type per tree")
+            return False
+
+    
