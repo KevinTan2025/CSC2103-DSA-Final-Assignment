@@ -448,3 +448,114 @@ def parse_list_input(user_input: str) -> List[Any]:
     # Parse comma-separated list input
     items = [item.strip() for item in user_input.split(',')]
     return [parse_input(item) for item in items if item]
+
+def main():
+    '''
+    Main program function with interactive menu
+    Demonstrates all BST operations with user input
+    '''
+    print("BST Implementation - CSC2103 Data Structures Assignment")
+    print("This program demonstrates a complete Binary Search Tree implementation")
+    print("with comprehensive operations and visualizations.")
+
+    bst = BinarySearchTree()
+
+    while True:
+        display_menu()
+
+        try:
+            choice = input("\nEnter your choice (0-12): ").strip()
+
+            if choice == '0':
+                print("Thank you for using our BST program!")
+                break
+
+            elif choice == '1':
+                value = input("Enter element to insert: ")
+                parsed_value = parse_input(value)
+                result = bst.insert(parsed_value)
+                if result:
+                    print(f"✓ Successfully inserted {parsed_value}")
+                else:
+                    print(f"✗ Failed to insert {parsed_value} (duplicate). Please do not enter duplicate value!")
+
+            elif choice == '2':
+                elements = input("Enter elements separated by commas: ")
+                parsed_elements = parse_list_input(elements)
+                inserted = 0
+                for element in parsed_elements:
+                    if bst.insert(element):
+                        inserted += 1
+                print(f"Successfully inserted {inserted} out of {len(parsed_elements)} elements")
+
+            elif choice == '3':
+                value = input("Enter element to search: ")
+                parsed_value = parse_input(value)
+                result = bst.search(parsed_value)
+                if result:
+                    print(f"✓ Element {parsed_value} found in tree")
+                else:
+                    print(f"✗ Element {parsed_value} not found in tree")
+
+            elif choice == '4':
+                value = input("Enter element to delete: ")
+                parsed_value = parse_input(value)
+                result = bst.delete(parsed_value)
+                if result:
+                    print(f"✓ Successfully deleted {parsed_value}")
+                else:
+                    print(f"✗ Failed to delete {parsed_value} (not found)")
+
+            elif choice == '5':
+                print("\nTree Structure:")
+                print(bst.visualize_tree())
+
+            elif choice == '6':
+                result = bst.inorder_traversal()
+                print(f"Inorder traversal: {result}")
+
+            elif choice == '7':
+                result = bst.preorder_traversal()
+                print(f"Preorder traversal: {result}")
+
+            elif choice == '8':
+                result = bst.postorder_traversal()
+                print(f"Postorder traversal: {result}")
+
+            elif choice == '9':
+                min_val = input("Enter minimum value: ")
+                max_val = input("Enter maximum value: ")
+                min_parsed = parse_input(min_val)
+                max_parsed = parse_input(max_val)
+                result = bst.find_range(min_parsed, max_parsed)
+                print(f"Elements in range [{min_parsed}, {max_parsed}]: {result}")
+
+            elif choice == '10':
+                stats = bst.get_statistics()
+                print("\nTree Statistics:")
+                print(f"  Size: {stats['size']}")
+                print(f"  Height: {stats['height']}")
+                print(f"  Operations performed: {stats['operations']}")
+                print(f"  Is balanced: {stats['is_balanced']}")
+                if stats['size'] > 0:
+                    print(f"  Minimum value: {stats['min_value']}")
+                    print(f"  Maximum value: {stats['max_value']}")
+
+            elif choice == '11':
+                BSTTester.run_basic_tests()
+                BSTTester.run_edge_case_tests()
+                BSTTester.run_type_tests()
+
+            elif choice == '12':
+                bst = BinarySearchTree()
+                print("Tree cleared successfully")
+
+            else:
+                print("Invalid choice. Please enter a number between 0 and 12.")
+
+        except KeyboardInterrupt:
+            print("\n\nProgram interrupted by user.")
+            break
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            print("Please try again.")
