@@ -225,3 +225,17 @@ class BinarySearchTree:
                 self._range_search(node.right, min_val, max_val, result)
         except TypeError:
             pass
+
+    def get_statistics(self) -> dict:
+        # Get comprehensive tree statistics
+        if not self.root:
+            return {"size": 0, "height": 0, "operations": self.operation_count}
+
+        return {
+            "size": self.size,
+            "height": self.get_height(),
+            "operations": self.operation_count,
+            "is_balanced": self._is_balanced(),
+            "min_value": self._find_min(self.root).data if self.root else None,
+            "max_value": self._find_max(self.root).data if self.root else None,
+        }
