@@ -70,4 +70,27 @@ class BinarySearchTree:
             print(f"Error: Cannot compare {type(data)} with {type(node.data)}. Please only use 1 data type per tree")
             return False
 
+    def search(self, data: Any) -> bool:
+        '''
+        Search for data in BST
+        Returns True if found, False otherwise
+        '''
+        self.operation_count += 1
+        return self._search_recursive(self.root, data)
+
+    def _search_recursive(self, node: Optional[BSTNode], data: Any) -> bool:
+        # Helper method for recursive search
+        if node is None:
+            return False
+
+        try:
+            if data == node.data:
+                return True
+            elif data < node.data:
+                return self._search_recursive(node.left, data)
+            else:
+                return self._search_recursive(node.right, data)
+        except TypeError:
+            return False
+
     
