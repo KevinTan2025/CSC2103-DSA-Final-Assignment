@@ -458,7 +458,7 @@ def parse_list_input(user_input: str) -> List[Any]:
 
 def ask_continue_choice(additional_options: List[str] = None) -> str:
     """
-    统一的继续选择函数，提高代码复用性
+    Unified continue choice function for better UX
     Returns: 'continue', 'home', 'exit', or additional option key
     """
     print("\n" + "=" * 50)
