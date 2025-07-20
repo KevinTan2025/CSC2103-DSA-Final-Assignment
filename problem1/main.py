@@ -814,7 +814,7 @@ def main():
                     ask_continue_choice()
                     continue
                     
-                confirm = input(f"⚠️  Are you sure you want to clear the tree? ({bst.size} nodes will be lost) [y/N]: ").lower()
+                confirm = input(f"⚠️  Are you sure you want to clear the tree? ({bst.size} nodes will be lost) [y/n]: ").lower()
                 if confirm == 'y':
                     bst = BinarySearchTree()
                     print("✅ Tree cleared successfully!")
@@ -829,7 +829,7 @@ def main():
 
         except KeyboardInterrupt:
             print("\n\n⚠️  Program interrupted by user.")
-            confirm = input("Do you want to exit? [y/N]: ").lower()
+            confirm = input("Do you want to exit? [y/n]: ").lower()
             if confirm == 'y':
                 print("👋 Goodbye!")
                 break
