@@ -406,7 +406,7 @@ def display_menu():
     print("BINARY SEARCH TREE OPERATIONS - Interactive Demo")
     print("=" * 70)
     print("📝 Supported data types: integers, floats, strings")
-    print("⚠️  Note: Use only ONE data type per tree | No duplicate values allowed")
+    print("⚠️ Note: Use only ONE data type per tree | No duplicate values allowed")
     print("=" * 70)
     print("🌳 TREE BUILDING:")
     print("1.  Insert multiple nodes (guided input)")
@@ -606,120 +606,134 @@ def main():
                 guided_multiple_insert(bst)
 
             elif choice == '2':
-                print("\n🔸 SINGLE ELEMENT INSERTION")
-                print("Example inputs: 42, 3.14, hello")
-                
-                # Show current tree state if not empty
-                if bst.size > 0:
-                    print(f"\n📝 Current tree elements: {bst.inorder_traversal()}")
-                    print(f"🌳 Tree size: {bst.size} nodes")
-                else:
-                    print("\n🌳 Tree is currently empty")
-                
-                value = input("\nEnter element to insert: ").strip()
-                if not value:
-                    print("❌ Please enter a value.")
-                    continue
-                    
-                parsed_value = parse_input(value)
-                result = bst.insert(parsed_value)
-                if result:
-                    print(f"✅ Successfully inserted: {parsed_value}")
-                    print(f"🌳 Tree size: {bst.size} nodes")
-                    
-                    # Show current state
-                    if bst.size > 1:
-                        print(f"📝 Current tree (sorted): {bst.inorder_traversal()}")
-                    
-                    # Use unified continue choice function with additional option
-                    choice_result = ask_continue_choice(["Insert another element"])
-                    if choice_result == "option_1":
-                        # Continue with another single insertion (loop back)
+                while True:  # Add this loop to stay in single insert mode
+                    print("\n🔸 SINGLE ELEMENT INSERTION")
+                    print("Example inputs: 42, 3.14, hello")
+
+                    # Show current tree state if not empty
+                    if bst.size > 0:
+                        print(f"\n📝 Current tree elements: {bst.inorder_traversal()}")
+                        print(f"🌳 Tree size: {bst.size} nodes")
+                    else:
+                        print("\n🌳 Tree is currently empty")
+
+                    value = input("\nEnter element to insert: ").strip()
+                    if not value:
+                        print("❌ Please enter a value.")
                         continue
-                else:
-                    print(f"❌ Failed to insert {parsed_value}")
-                    print("💡 Possible reasons: duplicate value or data type mismatch")
-                    
-                    retry_choice = input("Would you like to try again with a different value? (y/n): ").lower().strip()
-                    if retry_choice == 'y':
-                        continue  # Loop back to try again
+
+                    parsed_value = parse_input(value)
+                    result = bst.insert(parsed_value)
+                    if result:
+                        print(f"✅ Successfully inserted: {parsed_value}")
+                        print(f"🌳 Tree size: {bst.size} nodes")
+
+                        # Show current state
+                        if bst.size > 1:
+                            print(f"📝 Current tree (sorted): {bst.inorder_traversal()}")
+
+                        # Use unified continue choice function with additional option
+                        choice_result = ask_continue_choice(["Insert another element"])
+                        if choice_result == "option_1":
+                            continue  # Continue the while loop (insert again)
+                        else:
+                            break  # Exit the while loop and return to main menu
+                    else:
+                        print(f"❌ Failed to insert {parsed_value}")
+                        print("💡 Possible reasons: duplicate value or data type mismatch")
+
+                        retry_choice = input("Would you like to try again with a different value? (y/n): ").lower().strip()
+                        if retry_choice == 'y':
+                            continue  # Continue the while loop to try again
+                        else:
+                            break  # Exit the while loop and return to main menu
 
             elif choice == '3':
-                if bst.size == 0:
-                    print("❌ Tree is empty! Please insert some elements first.")
-                    continue
-                    
-                print(f"\n🔍 SEARCH IN TREE")
-                print(f"Current tree elements: {bst.inorder_traversal()}")
-                value = input("Enter element to search: ").strip()
-                if not value:
-                    print("❌ Please enter a value.")
-                    continue
-                    
-                parsed_value = parse_input(value)
-                result = bst.search(parsed_value)
-                if result:
-                    print(f"✅ Element '{parsed_value}' FOUND in tree")
-                else:
-                    print(f"❌ Element '{parsed_value}' NOT FOUND in tree")
-                
-                # Use unified continue choice function
-                choice_result = ask_continue_choice(["Search another element"])
-                if choice_result == "option_1":
-                    continue  # Search another element
+                while True:  # Add this loop to stay in search mode
+                    if bst.size == 0:
+                        print("❌ Tree is empty! Please insert some elements first.")
+                        break
+
+                    print(f"\n🔍 SEARCH IN TREE")
+                    print(f"Current tree elements: {bst.inorder_traversal()}")
+                    value = input("Enter element to search: ").strip()
+                    if not value:
+                        print("❌ Please enter a value.")
+                        continue
+
+                    parsed_value = parse_input(value)
+                    result = bst.search(parsed_value)
+                    if result:
+                        print(f"✅ Element '{parsed_value}' FOUND in tree")
+                    else:
+                        print(f"❌ Element '{parsed_value}' NOT FOUND in tree")
+
+                    # Use unified continue choice function
+                    choice_result = ask_continue_choice(["Search another element"])
+                    if choice_result == "option_1":
+                        continue  # Continue the while loop (search again)
+                    else:
+                        break  # Exit the while loop and return to main menu
 
             elif choice == '4':
-                if bst.size == 0:
-                    print("❌ Tree is empty! Nothing to delete.")
-                    continue
-                    
-                print(f"\n🗑️  DELETE ELEMENT")
-                print(f"Current tree elements: {bst.inorder_traversal()}")
-                value = input("Enter element to delete: ").strip()
-                if not value:
-                    print("❌ Please enter a value.")
-                    continue
-                    
-                parsed_value = parse_input(value)
-                result = bst.delete(parsed_value)
-                if result:
-                    print(f"✅ Successfully deleted: {parsed_value}")
-                    print(f"🌳 Remaining elements: {bst.inorder_traversal()}")
-                else:
-                    print(f"❌ Failed to delete '{parsed_value}' (not found)")
-                
-                # Use unified continue choice function
-                if bst.size > 0:  # Only offer to delete more if tree isn't empty
-                    choice_result = ask_continue_choice(["Delete another element"])
-                    if choice_result == "option_1":
-                        continue  # Delete another element
-                else:
-                    print("🌳 Tree is now empty!")
-                    ask_continue_choice()
+                while True:  # Add this loop to stay in delete mode
+                    if bst.size == 0:
+                        print("❌ Tree is empty! Nothing to delete.")
+                        break
+
+                    print(f"\n🗑️  DELETE ELEMENT")
+                    print(f"Current tree elements: {bst.inorder_traversal()}")
+                    value = input("Enter element to delete: ").strip()
+                    if not value:
+                        print("❌ Please enter a value.")
+                        continue
+
+                    parsed_value = parse_input(value)
+                    result = bst.delete(parsed_value)
+                    if result:
+                        print(f"✅ Successfully deleted: {parsed_value}")
+                        print(f"🌳 Remaining elements: {bst.inorder_traversal()}")
+                    else:
+                        print(f"❌ Failed to delete '{parsed_value}' (not found)")
+
+                    # Use unified continue choice function
+                    if bst.size > 0:  # Only offer to delete more if tree isn't empty
+                        choice_result = ask_continue_choice(["Delete another element"])
+                        if choice_result == "option_1":
+                            continue  # Continue the while loop (delete again)
+                        else:
+                            break  # Exit the while loop and return to main menu
+                    else:
+                        print("🌳 Tree is now empty!")
+                        ask_continue_choice()
+                        break  # Exit since tree is empty
 
             elif choice == '5':
-                if bst.size == 0:
-                    print("❌ Tree is empty! Please insert some elements first.")
-                    continue
-                    
-                print(f"\n🔍 RANGE SEARCH")
-                print(f"Current tree elements: {bst.inorder_traversal()}")
-                min_val = input("Enter minimum value: ").strip()
-                max_val = input("Enter maximum value: ").strip()
-                
-                if not min_val or not max_val:
-                    print("❌ Please enter both minimum and maximum values.")
-                    continue
-                    
-                min_parsed = parse_input(min_val)
-                max_parsed = parse_input(max_val)
-                result = bst.find_range(min_parsed, max_parsed)
-                print(f"📊 Elements in range [{min_parsed}, {max_parsed}]: {result}")
-                
-                # Use unified continue choice function
-                choice_result = ask_continue_choice(["Search another range"])
-                if choice_result == "option_1":
-                    continue  # Search another range
+                while True:  # Add this loop to stay in range search mode
+                    if bst.size == 0:
+                        print("❌ Tree is empty! Please insert some elements first.")
+                        break
+
+                    print(f"\n🔍 RANGE SEARCH")
+                    print(f"Current tree elements: {bst.inorder_traversal()}")
+                    min_val = input("Enter minimum value: ").strip()
+                    max_val = input("Enter maximum value: ").strip()
+
+                    if not min_val or not max_val:
+                        print("❌ Please enter both minimum and maximum values.")
+                        continue
+
+                    min_parsed = parse_input(min_val)
+                    max_parsed = parse_input(max_val)
+                    result = bst.find_range(min_parsed, max_parsed)
+                    print(f"📊 Elements in range [{min_parsed}, {max_parsed}]: {result}")
+
+                    # Use unified continue choice function
+                    choice_result = ask_continue_choice(["Search another range"])
+                    if choice_result == "option_1":
+                        continue  # Continue the while loop (search another range)
+                    else:
+                        break  # Exit the while loop and return to main menu
 
             elif choice == '6':
                 if bst.size == 0:
