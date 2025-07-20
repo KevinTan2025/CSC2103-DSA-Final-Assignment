@@ -2,6 +2,7 @@
 CSC2103 Data Structures and Algorithms
 Problem 1: Binary Search Tree (BST) Implementation
 Author: Yeoh JinWei
+UX Refinement: Tan Kok Feng
 
 This program implements a comprehensive Binary Search Tree with various operations
 and visualization capabilities. No built-in libraries are used for core BST operations.
