@@ -85,7 +85,8 @@ def min_coins(coins, target):
 
 def run_tests():
     print("Running test cases...")
-    # Test cases to validate the implementation
+    # Predefined test cases to validate the correctness of the algorithm
+    # Each test case is a tuple: (coins, target, expected_result)
     test_cases = [
         ([1,2,5],11,3),  # 11 = 5 + 5 + 1
         ([2],3,-1),  # Impossible to make 3 with only 2s
@@ -94,6 +95,7 @@ def run_tests():
         ([7],14,2) # 14 = 7 + 7 
     ]
 
+    # Run each test case and compare the output to expected value
     for i, (coins, target, expected) in enumerate(test_cases):
         result = min_coins(coins, target)
         status = "PASSED" if result == expected else f"FAILED(Got {result})"
@@ -101,6 +103,10 @@ def run_tests():
     print("Testing completed.\n")
 
 def display_breakdown(coin_breakdown, coin_labels):
+    """
+    Displays the breakdown of coins used to make the target amount.
+    Formates coin denominations with appropriate labels (e.g. $1, 50¢).
+    """
     for coin in sorted(coin_breakdown.keys()):
         label = coin_labels.get(coin, f"{coin}¢" if coin < 100 else f"${coin // 100}")
         print(f"{label}: {coin_breakdown[coin]}")
@@ -125,50 +131,88 @@ def main():
         10000: "$100" # 100 dollars
     }
 
-    run_tests()
-
-    print("=== Coin Change Calculator ===")
     while True:
-        # Choose coins
-        choice = input("Use default coin denominations? (y/n): ").lower()
-        if choice == 'y':
-            print("Available coin denominations:")
-            print("1¢, 5¢, 10¢, 20¢, 50¢, $1, $5, $10, $20, $50, $100")
-            coins = default_coins
-        else:
-            try:
-                coins = list(map(int, input("Enter custom coin values (space-separated, in cents): ").split()))
-                if not coins or any(c <= 0 for c in coins):
-                    raise ValueError
-            except ValueError:
-                print("Invalid input. Please enter positive integers.")
-                continue
+        print("\n" + "="*70)
+        print(" COIN CHANGE SOLVER - Dynamic Programming (Bottom-Up Tabulation)")
+        print("="*70)
+        print("💡 This program calculates the minimum number of coins needed\n"
+              "   to make a target amount using dynamic programming.\n")
+        print("MENU:")
+        print("1. Run Coin Change Calculator")
+        print("2. Run Built-in Test Cases")
+        print("0. Exit")
+        print("="*70)
+        choice = input("Enter your choice (0-2): ")
 
-        try:
-            dollars = float(input("Enter target amount in dollars (e.g., 5.75): $"))
-            if dollars < 0:
-                raise ValueError
-        except ValueError:
-            print("Invalid input. Please enter a non-negative number.")
-            continue
-
-        target = int(round(dollars * 100))
-        result, breakdown = min_coins_with_breakdown(coins, target)
-
-        if result == -1:
-            print(f"\nCannot make ${dollars:.2f} with the given denominations.\n")
-        else:
-            print(f"\nTo make ${dollars:.2f}, you need {result} coin(s).")
-            print("Coin breakdown:")
-            display_breakdown(breakdown, coin_labels)
-            total_value = sum(coin * count for coin, count in breakdown.items())
-            print(f"\nVerification: Total value = ${total_value / 100:.2f}\n")
-
-        again = input("Run another calculation? (y/n): ").lower()
-        if again != 'y':
-            print("👋 Exiting program. Goodbye!")
+        if choice == '0':
+            print("\n👋 Thank you for using the Coin Change Solver!\n")
             break
 
+        elif choice == '2':
+            print("\n\n" + "="*40)
+            print("🧪 RUNNING TEST CASES")
+            print("="*40)
+            run_tests()
+            input("Press Enter to return to main menu...")
+
+        elif choice == '1':
+            print("\n\n" + "="*60)
+            print("💰 COIN DENOMINATION SETUP")
+            print("="*60)
+            use_default = input("Use default coin denominations? (y/n): ").strip().lower()
+
+            if use_default == 'y':
+                coins = default_coins
+                print("✅ Using default coins:")
+                print("1¢, 5¢, 10¢, 20¢, 50¢, $1, $5, $10, $20, $50, $100")
+            else:
+                try:
+                    coins = list(map(int, input("Enter custom coin values (in cents, space-separated): ").split()))
+                    if not coins or any(c <= 0 for c in coins):
+                        raise ValueError
+                    print("✅ Custom coins set:", coins)
+                except ValueError:
+                    print("❌ Invalid input. Please enter positive integers only.")
+                    continue
+
+            print("\n" + "="*60)
+            print("💵 TARGET AMOUNT INPUT")
+            print("="*60)
+            print("💡 Enter in dollar format (e.g., 3.75 for $3.75)")
+            try:
+                dollars = float(input("Enter target amount: $"))
+                if dollars < 0:
+                    raise ValueError
+            except ValueError:
+                print("❌ Invalid input. Please enter a non-negative number.")
+                continue
+
+            target = int(round(dollars * 100))
+            result, breakdown = min_coins_with_breakdown(coins, target)
+
+            print("\n" + "="*60)
+            print("🎯 FINAL RESULT")
+            print("="*60)
+
+            if result == -1:
+                print(f"❌ Cannot make ${dollars:.2f} with the given denominations.")
+            else:
+                print(f"✅ To make ${dollars:.2f}, you need {result} coin(s).")
+                print("\n📦 Coin Breakdown:")
+                display_breakdown(breakdown, coin_labels)
+                total_value = sum(coin * count for coin, count in breakdown.items())
+                print(f"\n🧾 Verification: Total value = ${total_value / 100:.2f}")
+
+            print("\n\n" + "="*60)
+            print("What would you like to do next?")
+            print("1. Back to Main Menu")
+            print("2. Exit")
+            next_action = input("Enter your choice (1-2): ")
+            if next_action == '2':
+                print("\n👋 Thank you for using the Coin Change Solver!\n")
+                break
+        else:
+            print("❌ Invalid choice. Please enter 0, 1, or 2.")    
 
 # Entry point of the program
 if __name__ == "__main__":
