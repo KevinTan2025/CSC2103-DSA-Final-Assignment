@@ -65,21 +65,33 @@ def run_problem(problem_num):
     """Run the specified problem's main program"""
     try:
         problem_path = os.path.join(os.path.dirname(__file__), f"problem{problem_num}")
-        main_file = os.path.join(problem_path, "main.py")
+        
+        # Define the actual filenames for each problem
+        problem_files = {
+            1: "problem1_binarySearchTree.py",
+            2: "problem2_dijkstra.py", 
+            3: "problem3_dynamicProgramming.py"
+        }
+        
+        if problem_num not in problem_files:
+            print(f"❌ Error: Problem {problem_num} not found!")
+            return False
+            
+        main_file = os.path.join(problem_path, problem_files[problem_num])
         
         if not os.path.exists(main_file):
-            print(f"❌ Error: Problem {problem_num} main.py not found!")
+            print(f"❌ Error: {problem_files[problem_num]} not found in problem{problem_num} directory!")
             return False
         
         print(f"\n🚀 Launching Problem {problem_num}...")
         print("="*50)
         
-        # Change to the problem directory and run the main.py
+        # Change to the problem directory and run the specific problem file
         original_cwd = os.getcwd()
         os.chdir(problem_path)
         
-        # Execute the problem's main.py
-        result = subprocess.run([sys.executable, "main.py"], 
+        # Execute the problem's Python file
+        result = subprocess.run([sys.executable, problem_files[problem_num]], 
                               capture_output=False, 
                               text=True)
         

@@ -30,17 +30,17 @@ Each problem is implemented with a focus on educational clarity, comprehensive t
 
 ```
 CSC2103-DSA-Final-Assignment/
-├── main.py                     # 🚀 Unified entry point for all problems
-├── README.md                   # 📖 Project documentation
-├── pyproject.toml             # 🔧 Python project configuration
-├── .gitignore                 # 🚫 Git ignore rules
-├── problem1/                  # 🌳 Binary Search Tree Implementation
-│   └── main.py               # Complete BST with operations and visualization
-├── problem2/                  # 🗺️ Dijkstra's Algorithm Visualization
-│   ├── main.py               # Algorithm implementation with step-by-step visualization
-│   └── graph_edges.csv       # Graph data for testing
-└── problem3/                  # 💰 Dynamic Programming - Coin Change
-    └── main.py               # Bottom-up tabulation with breakdown analysis
+├── main.py                              # 🚀 Unified entry point for all problems
+├── README.md                            # 📖 Project documentation
+├── pyproject.toml                       # 🔧 Python project configuration
+├── .gitignore                          # 🚫 Git ignore rules
+├── problem1/                           # 🌳 Binary Search Tree Implementation
+│   └── problem1_binarySearchTree.py   # Complete BST with operations and visualization
+├── problem2/                           # 🗺️ Dijkstra's Algorithm Visualization
+│   ├── problem2_dijkstra.py           # Algorithm implementation with step-by-step visualization
+│   └── graph_edges.csv                 # Graph data for testing
+└── problem3/                           # 💰 Dynamic Programming - Coin Change
+    └── problem3_dynamicProgramming.py # Bottom-up tabulation with breakdown analysis
 ```
 
 ## 🚀 How to Run
@@ -76,13 +76,13 @@ You can also run each problem independently:
 
 ```bash
 # Problem 1: Binary Search Tree
-cd problem1 && python main.py
+cd problem1 && python problem1_binarySearchTree.py
 
 # Problem 2: Dijkstra's Algorithm
-cd problem2 && python main.py
+cd problem2 && python problem2_dijkstra.py
 
 # Problem 3: Dynamic Programming
-cd problem3 && python main.py
+cd problem3 && python problem3_dynamicProgramming.py
 ```
 
 ## 📋 Problems Detailed Description
