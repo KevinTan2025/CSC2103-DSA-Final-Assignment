@@ -90,6 +90,7 @@ cd problem3 && python main.py
 ### 🌳 Problem 1: Binary Search Tree (BST) Implementation
 
 **Developer**: Yeoh JinWei
+
 **UX Enhancement**: Tan Kok Feng
 
 **Features**:
@@ -128,6 +129,7 @@ cd problem3 && python main.py
 ### 💰 Problem 3: Dynamic Programming - Coin Change Problem
 
 **Developers**: Ng Ji Yeung, Wong Yu Xuan, Wong Wen Ru
+
 **UX Enhancement**: Tan Kok Feng
 
 **Features**:
