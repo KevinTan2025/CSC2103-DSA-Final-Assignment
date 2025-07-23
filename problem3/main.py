@@ -84,22 +84,29 @@ def min_coins(coins, target):
     return result
 
 def run_tests():
-    print("Running test cases...")
+    print("Running test cases...\n")
     # Predefined test cases to validate the correctness of the algorithm
-    # Each test case is a tuple: (coins, target, expected_result)
+    # Each test case is a tuple: (coins, target, expected_result, description, explanation)
     test_cases = [
-        ([1,2,5],11,3),  # 11 = 5 + 5 + 1
-        ([2],3,-1),  # Impossible to make 3 with only 2s
-        ([1,3,4],6,2), # 6 = 3 + 3 or 4 + 1 + 1
-        ([5,10],0,0), # 0 amount requires 0 coins
-        ([7],14,2) # 14 = 7 + 7 
+        ([1,2,5], 11, 3, "Standard case", "11¢ = 5¢ + 5¢ + 1¢ (3 coins)"),
+        ([2], 3, -1, "Impossible case", "Cannot make 3¢ with only 2¢ coins"),
+        ([1,3,4], 6, 2, "Multiple solutions", "6¢ = 3¢ + 3¢ (2 coins) is better than 1¢+1¢+1¢+1¢+1¢+1¢ (6 coins)"),
+        ([5,10], 0, 0, "Zero amount", "0¢ requires 0 coins"),
+        ([7], 14, 2, "Single denomination", "14¢ = 7¢ + 7¢ (2 coins)")
     ]
 
     # Run each test case and compare the output to expected value
-    for i, (coins, target, expected) in enumerate(test_cases):
+    for i, (coins, target, expected, description, explanation) in enumerate(test_cases):
+        print(f"Test {i+1}: {description}")
+        print(f"  Coins available: {coins}")
+        print(f"  Target amount: {target}¢")
+        print(f"  Expected result: {expected} coins")
+        print(f"  Logic: {explanation}")
+        
         result = min_coins(coins, target)
-        status = "PASSED" if result == expected else f"FAILED(Got {result})"
-        print(f"Test {i+1}: coins={coins}, target= {target} -> expected= {expected} -> {status}")
+        status = "✅ PASSED" if result == expected else f"❌ FAILED (Got {result})"
+        print(f"  Result: {status}\n")
+    
     print("Testing completed.\n")
 
 def display_breakdown(coin_breakdown, coin_labels):
@@ -159,7 +166,7 @@ def main():
             print("\n\n" + "="*60)
             print("💰 COIN DENOMINATION SETUP")
             print("="*60)
-            use_default = input("Use default coin denominations? (y/n): ").strip().lower()
+            use_default = input("Use default coin denominations? (Y/n): ").strip().lower()
 
             if use_default == 'y':
                 coins = default_coins
