@@ -234,4 +234,7 @@ def main():
 
 # Entry point of the program
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\n👋 Thank you for using our Coin Change Solver, goodbye!")
