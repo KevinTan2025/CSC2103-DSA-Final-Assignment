@@ -83,12 +83,33 @@ def min_coins(coins, target):
     result, _ = min_coins_with_breakdown(coins, target)
     return result
 
+def run_tests():
+    print("Running test cases...")
+    # Test cases to validate the implementation
+    test_cases = [
+        ([1,2,5],11,3),  # 11 = 5 + 5 + 1
+        ([2],3,-1),  # Impossible to make 3 with only 2s
+        ([1,3,4],6,2), # 6 = 3 + 3 or 4 + 1 + 1
+        ([5,10],0,0), # 0 amount requires 0 coins
+        ([7],14,2) # 14 = 7 + 7 
+    ]
+
+    for i, (coins, target, expected) in enumerate(test_cases):
+        result = min_coins(coins, target)
+        status = "PASSED" if result == expected else f"FAILED(Got {result})"
+        print(f"Test {i+1}: coins={coins}, target= {target} -> expected= {expected} -> {status}")
+    print("Testing completed.\n")
+
+def display_breakdown(coin_breakdown, coin_labels):
+    for coin in sorted(coin_breakdown.keys()):
+        label = coin_labels.get(coin, f"{coin}¢" if coin < 100 else f"${coin // 100}")
+        print(f"{label}: {coin_breakdown[coin]}")
 
 def main():
     # Predefined coin denominations (stored in cents for precise calculation)
     # Covers common currency: 1¢, 5¢, 10¢, 20¢, 50¢, $1, $5, $10, $20, $50, $100
-    coins = [1, 5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
-    
+    default_coins = [1, 5, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000]
+
     # Human-readable labels for displaying coin denominations
     coin_labels = {
         1: "1¢",      # 1 cent
@@ -103,45 +124,50 @@ def main():
         5000: "$50",  # 50 dollars
         10000: "$100" # 100 dollars
     }
-    
-    print("Available coin denominations:")
-    print("1¢, 5¢, 10¢, 20¢, 50¢, $1, $5, $10, $20, $50, $100")
-    
-    # Get user input for target amount in dollars (e.g., 5.75 for $5.75)
-    try:
-        target_dollars = float(input("Enter target amount in dollars (e.g., 5.75): $"))
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
-        return
 
-    # Validate input: amount must be non-negative
-    if target_dollars < 0:
-        print("Target amount must be non-negative.")
-        return
-    
-    # Convert dollars to cents for internal calculation (avoids floating-point precision issues)
-    # Example: $5.75 becomes 575 cents
-    target = int(round(target_dollars * 100))
+    run_tests()
 
-    # Run the Dynamic Programming algorithm
-    result, coin_breakdown = min_coins_with_breakdown(coins, target)
-    
-    # Display results based on whether a solution exists
-    if result == -1:
-        print(f"It is not possible to make ${target_dollars:.2f} with the available coin denominations.")
-    else:
-        # Display the optimal solution
-        print(f"\nTo make ${target_dollars:.2f}, you need {result} coins:")
-        print("Coin breakdown:")
-        
-        # Show count for each denomination (including zeros for unused coins)
-        for coin in coins:
-            count = coin_breakdown.get(coin, 0)
-            print(f"{coin_labels[coin]}:{count}")
-        
-        # Verification: Calculate total value to ensure correctness
-        total_value = sum(coin * count for coin, count in coin_breakdown.items())
-        print(f"\nVerification: Total value = ${total_value/100:.2f}")
+    print("=== Coin Change Calculator ===")
+    while True:
+        # Choose coins
+        choice = input("Use default coin denominations? (y/n): ").lower()
+        if choice == 'y':
+            print("Available coin denominations:")
+            print("1¢, 5¢, 10¢, 20¢, 50¢, $1, $5, $10, $20, $50, $100")
+            coins = default_coins
+        else:
+            try:
+                coins = list(map(int, input("Enter custom coin values (space-separated, in cents): ").split()))
+                if not coins or any(c <= 0 for c in coins):
+                    raise ValueError
+            except ValueError:
+                print("Invalid input. Please enter positive integers.")
+                continue
+
+        try:
+            dollars = float(input("Enter target amount in dollars (e.g., 5.75): $"))
+            if dollars < 0:
+                raise ValueError
+        except ValueError:
+            print("Invalid input. Please enter a non-negative number.")
+            continue
+
+        target = int(round(dollars * 100))
+        result, breakdown = min_coins_with_breakdown(coins, target)
+
+        if result == -1:
+            print(f"\nCannot make ${dollars:.2f} with the given denominations.\n")
+        else:
+            print(f"\nTo make ${dollars:.2f}, you need {result} coin(s).")
+            print("Coin breakdown:")
+            display_breakdown(breakdown, coin_labels)
+            total_value = sum(coin * count for coin, count in breakdown.items())
+            print(f"\nVerification: Total value = ${total_value / 100:.2f}\n")
+
+        again = input("Run another calculation? (y/n): ").lower()
+        if again != 'y':
+            print("👋 Exiting program. Goodbye!")
+            break
 
 
 # Entry point of the program
