@@ -1,19 +1,19 @@
-# 🧮 Coin Change Problem — Minimum Number of Coins (Bottom-Up DP)
-# Based on algorithm from GeeksforGeeks
-#
-# PROBLEM: Given a set of coin denominations and a target amount, find the minimum
-# number of coins needed to make that amount, and show the exact breakdown.
-#
-# ALGORITHM: Dynamic Programming (Bottom-Up Tabulation)
-# - Time Complexity: O(target × number_of_coins)
-# - Space Complexity: O(target)
-# - Uses parent tracking to reconstruct the optimal coin combination
-#
-# APPROACH:
-# 1. Build a DP table where dp[i] = minimum coins needed for amount i
-# 2. Track parent array to remember which coin was used for each amount
-# 3. Reconstruct solution by backtracking through parent array
-# 4. Display exact breakdown showing count of each coin denomination
+'''
+CSC2103 Data Structures and Algorithms
+Problem 3: Dynamic Programming (Bottom-Up Tabulation)
+Author: Ng Ji Yeung, Wong Yu Xuan, Wong Wen Ru
+UX Refinement: Tan Kok Feng
+
+This program implements a comprehensive Coin Change Problem solution using Dynamic Programming.
+It finds the minimum number of coins needed to make a target amount and provides a breakdown of the coins used.
+No built-in libraries are used for core operations.
+
+Inspired by GeeksforGeeks algorithm, this implementation includes:
+- Dynamic Programming (Bottom-Up Tabulation) approach
+- Parent tracking for reconstructing the coin combination
+- Built-in test cases for validation
+'''
+
 
 def min_coins_with_breakdown(coins, target):
     """
@@ -167,10 +167,21 @@ def main():
                 print("1¢, 5¢, 10¢, 20¢, 50¢, $1, $5, $10, $20, $50, $100")
             else:
                 try:
+                    print("💡 Examples: 1 5 10 25 (for 1¢, 5¢, 10¢, 25¢)")
+                    print("           : 1 10 50 100 500 (for 1¢, 10¢, 50¢, $1, $5)")
                     coins = list(map(int, input("Enter custom coin values (in cents, space-separated): ").split()))
                     if not coins or any(c <= 0 for c in coins):
                         raise ValueError
-                    print("✅ Custom coins set:", coins)
+                    
+                    # Display custom coins in user-friendly format
+                    print("✅ Using custom coins:")
+                    coin_display = []
+                    for coin in sorted(coins):
+                        if coin < 100:
+                            coin_display.append(f"{coin}¢")
+                        else:
+                            coin_display.append(f"${coin // 100}")
+                    print(", ".join(coin_display))
                 except ValueError:
                     print("❌ Invalid input. Please enter positive integers only.")
                     continue
